@@ -20,6 +20,8 @@ Ubuntu 20.04+ (تست‌شده)
 
 مراحل:
 
+
+185.51.200.2 178.22.122.100
 # 1. دریافت پروژه
 sudo apt install -y git
 git clone https://github.com/stormyboy68/Pando360.git
@@ -27,8 +29,7 @@ cd Pando360
 # 2.ویرایش فایل .env  
     ایمیل و رمز و ... را وارد کنید
 # 3. اجرای اسکریپت نصب و راه‌اندازی
-chmod +x deploy_pando360.sh
-sudo ./deploy_pando360.sh
+chmod +x deploy_pando360.sh && sudo ./deploy_pando360.sh
 
 🔐 پورت‌های مورد نیاز
 
