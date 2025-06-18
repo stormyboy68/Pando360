@@ -21,6 +21,7 @@ Ubuntu 20.04+ (تست‌شده)
 مراحل:
 
 # 1. دریافت پروژه
+sudo apt install -y git
 git clone https://github.com/stormyboy68/Pando360.git
 cd Pando360
 # 2.ویرایش فایل .env  
