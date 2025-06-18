@@ -1,0 +1,85 @@
+name: pando360
+services:
+  app:
+    container_name: app-pando360
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: php-pando360:v8.3-fpm
+    restart: unless-stopped
+    tty: true
+    working_dir: /var/www/html
+    volumes:
+      - ./backend:/var/www/html:cached
+      - app-storage:/var/www/html/storage
+      - app-vendor:/var/www/html/vendor
+    env_file:
+      - ./.env
+    environment:
+      - license=${license}
+      - APP_DEBUG=true
+      - APP_ENV=local
+      - APP_NAME=Pando360
+      - DB_CONNECTION=mysql
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_DATABASE=pando360
+      - RUN_SETUP=${RUN_SETUP:-false}
+      - PASSORT_CLIENT_IDS_CREATED=true
+      - WWWUSER=www-data
+    user: "${WWWUSER:-www-data}"
+    ports:
+      - "9000:9000"
+    networks:
+      - app-network
+  nginx:
+    container_name: nginx-pando360
+    image: nginx:alpine
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    volumes:
+      - ./backend:/var/www/html
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - app
+      - mysql
+    networks:
+      - app-network
+
+  mysql:
+    container_name: db-pando360
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      - MYSQL_DATABASE=laravel
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - mysql-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - app-network
+  redis:
+    image: redis:alpine
+    container_name: redis-pando360
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+    depends_on:
+      - app
+      - mysql
+      - nginx
+    networks:
+      - app-network
+volumes:
+  mysql-data:
+  app-vendor:
+  app-storage:
+  redis_data:
+
+networks:
+  app-network:
+    driver: bridge 

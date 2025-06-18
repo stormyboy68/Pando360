@@ -1,0 +1,8 @@
+{
+    "Users": true,
+    "Servers": true,
+    "Admins": true,
+    "Response": true,
+    "Auth": true,
+    "Core": true
+}
