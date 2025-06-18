@@ -1,7 +1,6 @@
 #!/bin/bash
 set -e
 
-# ▪️ Config – فقط متغیرها را تنظیم کن
 REPO="https://github.com/stormyboy68/Pando360.git"
 APP_DIR="/opt/Pando360"
 FRONT_DIR="$APP_DIR/frontend"
@@ -79,7 +78,6 @@ npm run build
 echo "🚀 Starting frontend server..."
 npx next start &
 
-# ◽️ نمایش وضعیت و آدرس‌ها
 echo "🧾 Containers status:"
 docker compose ps
 

@@ -16,7 +16,7 @@ services:
     env_file:
       - ./.env
     environment:
-      - license=${license}
+      - license=${LICENSE_KEY}
       - APP_DEBUG=true
       - APP_ENV=local
       - APP_NAME=Pando360
