@@ -11,18 +11,39 @@ BACK_PORT=8000
 echo "🔄 Update system packages..."
 sudo apt update -y
 
-echo "🐳 Install Docker & docker-compose plugin..."
-sudo apt install -y docker.io git ufw curl
+echo "🐳 Checking Docker installation..."
+if ! command -v docker >/dev/null 2>&1; then
+  echo "📦 Installing Docker..."
+  sudo apt update -y
+  sudo apt install -y docker.io
+  sudo systemctl enable docker
+  sudo systemctl start docker
+else
+  echo "✅ Docker is already installed: $(docker -v)"
+fi
 
-# Install Docker Compose V2 as plugin
-mkdir -p ~/.docker/cli-plugins/
-curl -SL https://github.com/docker/compose/releases/latest/download/docker-compose-linux-x86_64 -o ~/.docker/cli-plugins/docker-compose
-chmod +x ~/.docker/cli-plugins/docker-compose
+echo "🧩 Checking Docker Compose plugin..."
+if ! docker compose version >/dev/null 2>&1; then
+  echo "📦 Installing Docker Compose V2 plugin..."
+  mkdir -p ~/.docker/cli-plugins/
+  curl -SL https://github.com/docker/compose/releases/latest/download/docker-compose-linux-x86_64 -o ~/.docker/cli-plugins/docker-compose
+  chmod +x ~/.docker/cli-plugins/docker-compose
+  echo "✅ Docker Compose plugin installed."
+else
+  echo "✅ Docker Compose plugin already installed: $(docker compose version | head -n 1)"
+fi
 
-echo "📦 Install Node.js v20+ and npm..."
-curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
-sudo apt install -y nodejs
 
+echo "📦 Checking for Node.js..."
+if command -v node >/dev/null 2>&1; then
+  NODE_VERSION=$(node -v)
+  echo "✅ Node.js is already installed: $NODE_VERSION"
+else
+  echo "📦 Downloading Node.js v22+ and npm..."
+  curl -sL https://deb.nodesource.com/setup_22.x | sudo -E bash -
+  echo "📦 Installing Node.js v22+ and npm..."
+  sudo apt install -y nodejs
+fi
 echo "🚀 Enable Docker service..."
 sudo systemctl enable docker
 sudo systemctl start docker
