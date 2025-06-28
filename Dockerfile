@@ -58,6 +58,7 @@ RUN mkdir -p /var/www/html/storage/framework/cache/data \
     && chmod -R 775 /var/run
 RUN mkdir -p /var/www/html/vendor/php-http && \
     chown -R www-data:www-data /var/www/html/vendor && \
+    chown mkdir -p /var/www/html/bootstrap/cache && \
     chown -R www-data:www-data /var/www/html/bootstrap/cache && \
     chmod -R 775 /var/www/html/vendor && \
     chmod -R 775 /var/www/html/bootstrap/cache
