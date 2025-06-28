@@ -64,6 +64,8 @@ RUN mkdir -p /var/www/html/vendor/php-http && \
 RUN mkdir -p /var/www/html/bootstrap/cache \
     && chown -R www-data:www-data /var/www/html/bootstrap/cache \
     && chmod -R 775 /var/www/html/bootstrap/cache
+    && chown -R www-data:www-data /var/www/html/bootstrap \
+    && chmod -R 775 /var/www/html/bootstrap
 
 COPY ./docker/setup.sh /usr/local/bin/setup
 RUN chmod +x /usr/local/bin/setup
