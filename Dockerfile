@@ -59,9 +59,9 @@ RUN mkdir -p /var/www/html/storage/framework/cache/data \
 RUN mkdir -p /var/www/html/vendor/php-http && \
     chown -R www-data:www-data /var/www/html/vendor && \
     mkdir -p /var/www/html/bootstrap/cache && \
-    chown -R www-data:www-data /var/www/html/bootstrap/cache && \
+    chown -R www-data:www-data /var/www/html/bootstrap && \
     chmod -R 775 /var/www/html/vendor && \
-    chmod -R 775 /var/www/html/bootstrap/cache
+    chmod -R 775 /var/www/html/bootstrap
 COPY ./docker/setup.sh /usr/local/bin/setup
 RUN chmod +x /usr/local/bin/setup
 # Final ownership for working directory
