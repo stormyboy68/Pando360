@@ -1,5 +1,5 @@
 FROM php:8.3-fpm
-
+USER root
 # Set working directory
 WORKDIR /var/www/html
 
@@ -74,5 +74,6 @@ RUN chown -R www-data:www-data /var/www/html
 RUN chown -R www-data:www-data /var/www/html/*
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+USER www-data
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["php-fpm"]
