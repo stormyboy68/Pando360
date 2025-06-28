@@ -48,7 +48,6 @@ RUN echo "extension=/var/www/include/extensions/asbcrypto.so" > /usr/local/etc/p
 RUN usermod -u 1000 www-data && groupmod -g 1000 www-data
 
 # Create storage structure and set permissions
-COPY backend/storage/keys ./var/www/html/storage/keys
 RUN mkdir -p /var/www/html/storage/framework/cache/data \
     && mkdir -p /var/www/html/storage/logs \
     && mkdir -p /var/www/html/storage/app \
