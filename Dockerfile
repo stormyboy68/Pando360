@@ -25,11 +25,11 @@ RUN apt-get update && apt-get install -y \
     netcat-openbsd \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install \
-        pdo_mysql \
-        mbstring \
-        zip \
-        gd \
-        bcmath \
+    pdo_mysql \
+    mbstring \
+    zip \
+    gd \
+    bcmath \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -58,10 +58,13 @@ RUN mkdir -p /var/www/html/storage/framework/cache/data \
     && chmod -R 775 /var/run
 RUN mkdir -p /var/www/html/vendor/php-http && \
     chown -R www-data:www-data /var/www/html/vendor && \
-    mkdir -p /var/www/html/bootstrap/cache && \
-    chown -R www-data:www-data /var/www/html/bootstrap && \
-    chmod -R 775 /var/www/html/vendor && \
-    chmod -R 775 /var/www/html/bootstrap
+    chmod -R 775 /var/www/html/vendor
+
+# Ensure bootstrap/cache exists and has correct permissions
+RUN mkdir -p /var/www/html/bootstrap/cache \
+    && chown -R www-data:www-data /var/www/html/bootstrap/cache \
+    && chmod -R 775 /var/www/html/bootstrap/cache
+
 COPY ./docker/setup.sh /usr/local/bin/setup
 RUN chmod +x /usr/local/bin/setup
 # Final ownership for working directory
