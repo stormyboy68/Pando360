@@ -2,8 +2,7 @@
 set -e
 
 REPO="https://github.com/stormyboy68/Pando360.git"
-APP_DIR="/opt/Pando360"
-FRONT_DIR="$APP_DIR/frontend"
+FRONT_DIR="/frontend"
 FRONT_PORT=3000
 BACK_PORT=8000
 
@@ -47,15 +46,6 @@ echo "🚀 Enable Docker service..."
 sudo systemctl enable docker
 sudo systemctl start docker
 
-echo "📦 Clone or update project source..."
-if [ -d "$APP_DIR" ]; then
-  cd "$APP_DIR"
-  git pull origin main || git pull
-else
-  sudo git clone "$REPO" "$APP_DIR"
-  cd "$APP_DIR"
-fi
-
 echo "🚧 Setup firewall..."
 sudo ufw allow OpenSSH
 sudo ufw allow "${FRONT_PORT}/tcp"
@@ -63,6 +53,7 @@ sudo ufw allow "${BACK_PORT}/tcp"
 sudo ufw --force enable
 
 echo "🏗 Build and launch backend via Docker Compose..."
+docker compose down 
 export RUN_SETUP=true
 docker compose up -d --build
 

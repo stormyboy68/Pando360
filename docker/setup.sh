@@ -1,14 +1,14 @@
 #!/bin/bash
 
 # تعیین متغیر برای فعال/غیرفعال کردن این اسکریپت
-RUN_SETUP=${RUN_SETUP:-true}
+RUN_SETUP=${RUN_SETUP:-false}
 
 if [ "$RUN_SETUP" = "true" ]; then
     echo "Starting Laravel setup..."
 
     # انتظار برای آماده شدن سرویس‌های داکر
     echo "Waiting for MySQL to be ready..."
-    while ! mysqladmin ping -h"db-pando360" -u"root" -p"root" --silent; do
+    while ! mysqladmin ping -h"db-pando360" -u"$DB_USERNAME" -p"$DB_PASSWORD" --silent; do
         sleep 1
     done
 
