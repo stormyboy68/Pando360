@@ -11,7 +11,7 @@ export const BASE_URL = process.env.NODE_ENV === "production"
     ?  process.env.YOUR_DOMAIN+":3000" 
     : "http://localhost";
 
-export const SERVER_URL = "http://localhost:8000/api";
+export const SERVER_URL = process.env.YOUR_DOMAIN+":8000/api";
 
 
 export const API = BASE_URL + "/api" + VersionRoute;
