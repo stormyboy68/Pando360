@@ -2,7 +2,7 @@
 set -e
 
 REPO="https://github.com/stormyboy68/Pando360.git"
-FRONT_DIR="/frontend"
+FRONT_DIR="frontend/"
 FRONT_PORT=3000
 BACK_PORT=8000
 
