@@ -38,9 +38,11 @@ if command -v node >/dev/null 2>&1; then
   echo "✅ Node.js is already installed: $NODE_VERSION"
 else
   echo "📦 Downloading Node.js v22+ and npm..."
-  curl -sL https://deb.nodesource.com/setup_22.x | sudo -E bash -
+  curl -sL https://deb.nodesource.com/setup_22.x -o /tmp/nodesource_setup.sh | sudo -E bash -
   echo "📦 Installing Node.js v22+ and npm..."
-  sudo apt install -y nodejs
+  sudo bash /tmp/nodesource_setup.sh
+  sudo apt install nodejs
+  echo node -v
 fi
 echo "🚀 Enable Docker service..."
 sudo systemctl enable docker
