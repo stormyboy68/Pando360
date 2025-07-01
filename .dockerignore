@@ -1,0 +1,7 @@
+./backend/node_modules
+./backend/vendor
+./backend/storage
+./backend/*.log
+./backend/storage/logs
+./backend/.env
+./backend/public/*docker*

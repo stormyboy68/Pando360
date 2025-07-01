@@ -10,16 +10,17 @@ services:
     tty: true
     working_dir: /var/www/html
     volumes:
-      - ./backend:/var/www/html:cached
+      - ./backend:/var/www/html
       - app-storage:/var/www/html/storage
       - app-vendor:/var/www/html/vendor
+      - app-bootstrap:/var/www/html/bootstrap/cache
     env_file:
       - ./.env
     environment:
       - license=${LICENSE_KEY}
       - APP_DEBUG=true
       - APP_ENV=local
-      - APP_NAME=Pando360
+      - APP_NAME=pando360
       - DB_CONNECTION=mysql
       - DB_HOST=mysql
       - DB_PORT=3306
@@ -39,8 +40,8 @@ services:
     ports:
       - "8000:80"
     volumes:
-      - ./backend:/var/www/html
       - ./docker/nginx/conf.d:/etc/nginx/conf.d
+      - ./backend:/var/www/html 
     depends_on:
       - app
       - mysql
@@ -75,9 +76,15 @@ services:
     networks:
       - app-network
 volumes:
+  app_code:  
+    driver: local
+  app-storage:  
+    driver: local
+  app-vendor:  
+    driver: local
+  app-bootstrap: 
+    driver: local
   mysql-data:
-  app-vendor:
-  app-storage:
   redis_data:
 
 networks:

@@ -1,5 +1,5 @@
-FROM php:8.3-fpm
-USER root
+FROM php:8.3.8-fpm
+
 # Set working directory
 WORKDIR /var/www/html
 
@@ -67,6 +67,8 @@ RUN mkdir -p /var/www/html/bootstrap/cache \
     && chown -R www-data:www-data /var/www/html/bootstrap \
     && chmod -R 775 /var/www/html/bootstrap
 
+# COPY ./backend /var/www/html
+# RUN chown -R www-data:www-data /var/www/html
 COPY ./docker/setup.sh /usr/local/bin/setup
 RUN chmod +x /usr/local/bin/setup
 # Final ownership for working directory
@@ -74,6 +76,6 @@ RUN chown -R www-data:www-data /var/www/html
 RUN chown -R www-data:www-data /var/www/html/*
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
-USER www-data
+
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["php-fpm"]
