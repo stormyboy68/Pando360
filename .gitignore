@@ -5,8 +5,7 @@
 /public/build
 /storage/*.key
 .env.backup
-.env
-.env.production
+./.env
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml
