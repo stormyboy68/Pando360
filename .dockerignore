@@ -3,5 +3,4 @@
 ./backend/storage
 ./backend/*.log
 ./backend/storage/logs
-./backend/.env
 ./backend/public/*docker*
