@@ -8,7 +8,7 @@ export const VersionRoute_SUBSCRIPTION = "/v1";
 export const VersionRoute_TYPE = "/v1";
 
 export const BASE_URL = process.env.NODE_ENV === "production"
-    ?  process.env.YOUR_DOMAIN 
+    ?  process.env.YOUR_DOMAIN+":3000" 
     : "http://localhost";
 
 export const SERVER_URL = "http://localhost:8000/api";

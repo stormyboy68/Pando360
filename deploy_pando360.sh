@@ -55,7 +55,7 @@ sudo systemctl start docker
 echo "🚧 Setup firewall..."
 sudo ufw allow OpenSSH
 sudo ufw allow "${FRONT_PORT}/tcp"
-sudo ufw allow "${BACK_PORT}/tcp"
+# sudo ufw allow "${BACK_PORT}/tcp"
 sudo ufw --force enable
 
 echo "🏗 Build and launch backend via Docker Compose..."
@@ -80,6 +80,6 @@ docker compose ps
 
 IP=$(hostname -I | awk '{print $1}')
 echo "✅ Frontend: http://$IP:$FRONT_PORT"
-echo "✅ Backend/API: http://$IP:$BACK_PORT"
+# echo "✅ Backend/API: http://$IP:$BACK_PORT"
 echo ""
 echo "ℹ️ View logs with: docker compose logs -f"
