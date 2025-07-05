@@ -10,6 +10,7 @@ return [
         'http://localhost',
         'http://localhost:3000',
         'http://localhost:8000',
+        env("APP_URL",''),
         ],
 //    'allowed_origins' => ['*'],
     'allowed_origins_patterns' => [],
