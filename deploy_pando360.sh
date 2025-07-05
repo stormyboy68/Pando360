@@ -70,7 +70,7 @@ echo "📦 Installing dependencies..."
 npm install --legacy-peer-deps
 
 echo "🛠 Building frontend..."
-npm run build
+YOUR_DOMAIN=http://$IP:$BACK_PORT npm run build
 
 echo "🚀 Starting frontend server..."
 npx next start &
