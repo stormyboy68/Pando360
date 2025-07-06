@@ -18,13 +18,17 @@ services:
       - ./.env
     environment:
       - license=${LICENSE_KEY}
+      - FRONTEND_URL=${YOUR_DOMAIN:-http://localhost}:3000
       - APP_DEBUG=true
+      - YOUR_DOMAIN=${YOUR_DOMAIN:-http://localhost}
       - APP_ENV=local
       - APP_NAME=pando360
       - DB_CONNECTION=mysql
       - DB_HOST=mysql
       - DB_PORT=3306
       - DB_DATABASE=pando360
+      - DB_USERNAME=${DB_USERNAME:-root}
+      - DB_PASSWORD=${DB_PASSWORD}
       - RUN_SETUP=${RUN_SETUP:-false}
       - PASSORT_CLIENT_IDS_CREATED=true
       - WWWUSER=www-data
@@ -42,19 +46,41 @@ services:
     volumes:
       - ./docker/nginx/conf.d:/etc/nginx/conf.d
       - ./backend:/var/www/html 
+      - ./frontend:/app
     depends_on:
       - app
       - mysql
     networks:
       - app-network
-
+  frontend:
+    container_name: frontend-pando360
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    volumes:
+      - ./frontend:/app
+      - frontend-node-modules:/app/node_modules
+    environment:
+      - NEXT_PUBLIC_DOMAIN=${YOUR_DOMAIN:-http://localhost}:3000
+      - SERVER_URL=${YOUR_DOMAIN:-http://localhost}:8000
+    depends_on:
+      - app
+      - mysql
+      - nginx
+    networks:
+      - app-network
   mysql:
     container_name: db-pando360
     image: mysql:8.0
     restart: unless-stopped
+    env_file:
+      - ./.env
     environment:
-      - MYSQL_DATABASE=laravel
-      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=pando360
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
     volumes:
       - mysql-data:/var/lib/mysql
     ports:
@@ -83,6 +109,10 @@ volumes:
   app-vendor:  
     driver: local
   app-bootstrap: 
+    driver: local
+  frontend-data:
+    driver: local
+  frontend-node-modules:
     driver: local
   mysql-data:
   redis_data:

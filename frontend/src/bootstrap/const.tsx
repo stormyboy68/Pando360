@@ -7,13 +7,10 @@ export const VersionRoute_ADMIN = "/v1";
 export const VersionRoute_SUBSCRIPTION = "/v1";
 export const VersionRoute_TYPE = "/v1";
 
-export const BASE_URL =
-  process.env.NODE_ENV === "production"
-    ? process.env.YOUR_DOMAIN + ":3000"
-    : "http://localhost";
 
-export const SERVER_URL =
-  process.env.NODE_ENV === process.env.YOUR_DOMAIN + "/api"
+export const BASE_URL = process.env.NEXT_PUBLIC_DOMAIN;
+
+export const SERVER_URL = process.env.SERVER_URL+"/api";
 
 export const API = BASE_URL + "/api" + VersionRoute;
 
